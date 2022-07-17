@@ -13,6 +13,7 @@ public class EnnemyController : MonoBehaviour
     EnnemyController himself;
 
     bool isSelected = false;
+    int rnd = -1;
 
     void Start()
     {
@@ -20,7 +21,7 @@ public class EnnemyController : MonoBehaviour
         himself = GetComponent<EnnemyController>();
 
         positionInitiale = transform.position;
-        int rnd = Random.Range(0, 36);
+        rnd = Random.Range(0, 36);
         calcul = TableMultiplication.current.table[rnd].Item1;
         result = TableMultiplication.current.table[rnd].Item2;
     }
@@ -32,9 +33,22 @@ public class EnnemyController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        //ATTAQUE DE LA VILLE
+        //ATTAQUE DE LA VILLE   
+        EnnemyManager.current.nbEchec[rnd]++;
+        Die();
+    }
+
+    //Si l'ennemie a été tué par le joueur
+    public void Success()
+    {
+        EnnemyManager.current.nbReussite[rnd]++;
+        Die();
+    }
+
+    void Die()
+    {
         //transform.position = positionInitiale;
-        gameObject.SetActive(false);
+        gameObject.SetActive(false);//A remettre dans le pool initial
     }
 
     private void OnMouseDown()
@@ -49,11 +63,6 @@ public class EnnemyController : MonoBehaviour
             EnnemyManager.current.currentEnnemy = himself;
             GameEvents.current.EnnemyHasChanged();
         }
-    }
-
-    public void Die()
-    {
-        gameObject.SetActive(false);
     }
 
     public void Deselect() => isSelected = false;

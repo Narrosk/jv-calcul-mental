@@ -7,8 +7,10 @@ public class TableMultiplication : MonoBehaviour
     //Transformer en scriptableObject
     public static TableMultiplication current;
     public (string, string)[] table = new (string, string)[36];
-    [HideInInspector]
-    public int[] difficulty = new int[36]; //rempli de 0
+   /* [HideInInspector]
+    public List<int> easy = new List<int>(); //Contient le numéro de tous les calculs jugés "faciles"
+    public List<int> medium = new List<int>();
+    public List<int> hard = new List<int>();*/
 
     private void Start()
     {
@@ -22,6 +24,7 @@ public class TableMultiplication : MonoBehaviour
             for (int k = j; k <= 9; k++)
             {
                 table[i] = (j.ToString() + "x" + k.ToString(), (j*k).ToString());
+                //medium.Add(i);
                 i++;
             }
         }

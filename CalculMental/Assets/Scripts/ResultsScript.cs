@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
+//Script qui s'occupe des fonctionnalités du keypad et avertit si le joueur a réussi son calcul
 public class ResultsScript : MonoBehaviour
 {
     TMP_Text result;
@@ -59,7 +60,7 @@ public class ResultsScript : MonoBehaviour
         {
             Remove();
             ReinitialiseCalcul();
-            EnnemyManager.current.currentEnnemy.Die(); //Envoyer un game event et le recevoir dans EnnemyManager ? 
+            EnnemyManager.current.currentEnnemy.Success();
         }
     }
 
