@@ -2,15 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//Transformer en scriptableObject ?
 public class TableMultiplication : MonoBehaviour
 {
-    //Transformer en scriptableObject
     public static TableMultiplication current;
+    //0 à 11 -> easy; 12 à 23 -> medium; 24 à 35 -> hard
     public (string, string)[] table = new (string, string)[36];
-   /* [HideInInspector]
-    public List<int> easy = new List<int>(); //Contient le numéro de tous les calculs jugés "faciles"
-    public List<int> medium = new List<int>();
-    public List<int> hard = new List<int>();*/
+    
 
     private void Start()
     {
@@ -24,7 +22,6 @@ public class TableMultiplication : MonoBehaviour
             for (int k = j; k <= 9; k++)
             {
                 table[i] = (j.ToString() + "x" + k.ToString(), (j*k).ToString());
-                //medium.Add(i);
                 i++;
             }
         }

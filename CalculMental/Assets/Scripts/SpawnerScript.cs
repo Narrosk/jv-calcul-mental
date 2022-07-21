@@ -4,11 +4,16 @@ using UnityEngine;
 
 public class SpawnerScript : MonoBehaviour
 {
-    public GameObject ennemy;
     [SerializeField] Transform parent;
+    [SerializeField] List<GameObject> ennemies;
 
     float yBoundary = 5.2f;
     bool enCours = false;
+    int nbEasy;
+    int nbMedium;
+    int nbHard;
+    int nbDead = 0;
+
 
     void Start()
     {
@@ -16,13 +21,22 @@ public class SpawnerScript : MonoBehaviour
         GameEvents.current.clickOnStop += StopSpawning;
         GameEvents.current.clickOnResume += ResumeSpawning;
         GameEvents.current.clickOnReturnVillage += StopAll;
+        GameEvents.current.ennemyHasDied += CountDeadEnnemy;
     }
 
     void StartSpawning()
     {
         if (!enCours)
         {
-            StartCoroutine(Spawn());
+            Debug.Log("Debut");
+            enCours = true;
+            nbEasy = Random.Range(2, 4);  
+            nbMedium = Random.Range(1, 3);
+            nbHard = Random.Range(1, 3);
+
+            StartCoroutine(Spawn(nbEasy, 0));
+            StartCoroutine(Spawn(nbMedium, 5));
+            StartCoroutine(Spawn(nbHard, 10));
         }
     }
 
@@ -30,11 +44,8 @@ public class SpawnerScript : MonoBehaviour
     void ResumeSpawning() => enCours = true;
     void StopAll() => StopAllCoroutines();
 
-    IEnumerator Spawn()
+    IEnumerator Spawn(int nbEnnemy, int start)
     {
-        enCours = true;
-
-        int nbEnnemy = Random.Range(4, 7);
         int i = 0;
         while (i < nbEnnemy)
         {
@@ -42,7 +53,8 @@ public class SpawnerScript : MonoBehaviour
             if (enCours) //Si le joueur n'a pas fait pause durant la vague
             {
                 float rnd = Random.Range(-2f, 2f);
-                Instantiate(ennemy, new Vector3(rnd, yBoundary), ennemy.transform.rotation, parent); //Remplacer par du ObjectPoooling
+                ennemies[i+start].transform.position = new Vector3(rnd, yBoundary);
+                ennemies[i+start].SetActive(true);
                 i++;
 
                 yield return new WaitForSeconds(Random.Range(0.5f, 3f));
@@ -50,7 +62,16 @@ public class SpawnerScript : MonoBehaviour
             else
                 yield return null; 
         }
+    }
 
-        enCours = false;
+    void CountDeadEnnemy()
+    {
+        nbDead++;
+        if (nbDead >= nbEasy + nbMedium + nbHard)
+        {
+            enCours = false;
+            GameEvents.current.FinVague();
+            nbDead = 0;
+        }
     }
 }

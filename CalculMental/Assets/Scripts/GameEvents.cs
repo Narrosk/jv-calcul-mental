@@ -10,12 +10,26 @@ public class GameEvents : MonoBehaviour
     {
         current = this;
     }
-    
+
+    public event Action ennemyHasDied;
+    public void EnnemyHasDied()
+    {
+        if (ennemyHasDied != null)
+            ennemyHasDied();
+    }
+
     public event Action ennemyHasChanged;
     public void EnnemyHasChanged()
     {
         if (ennemyHasChanged != null)
             ennemyHasChanged();
+    }
+
+    public event Action finVague;
+    public void FinVague()
+    {
+        if (finVague != null)
+            finVague();
     }
 
     //Juste donner une référence au Spawner ?

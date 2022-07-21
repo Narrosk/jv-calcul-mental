@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-//Contient tous les bouts de scripts associés à un bouton autre que le keypad
+//Gère le menu pause et les vagues d'ennemies
 public class UIMenu : MonoBehaviour
 {
     public void Play()
