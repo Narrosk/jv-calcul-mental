@@ -10,7 +10,7 @@ public class PlayVagueButton : MonoBehaviour
 
     void Start()
     {
-        GameEvents.current.finVague += ShowButton;
+        OldGameEvents.current.finVague += ShowButton;
         image = GetComponent<Image>();
     }
 

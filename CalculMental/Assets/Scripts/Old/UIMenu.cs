@@ -7,21 +7,21 @@ public class UIMenu : MonoBehaviour
 {
     public void Play()
     {
-        GameEvents.current.HasClickedOnPlay();
+        OldGameEvents.current.HasClickedOnPlay();
     }
 
     public void Stop()
     {
-        GameEvents.current.HasClickedOnStop();
+        OldGameEvents.current.HasClickedOnStop();
     }
 
     public void Resume()
     {
-        GameEvents.current.HasClickedOnResume();
+        OldGameEvents.current.HasClickedOnResume();
     }
 
     public void ReturnVillage()
     {
-        GameEvents.current.HasClickedOnReturnVillage();
+        OldGameEvents.current.HasClickedOnReturnVillage();
     }
 }

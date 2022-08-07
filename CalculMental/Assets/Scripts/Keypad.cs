@@ -3,9 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-//Script qui s'occupe des fonctionnalités du keypad et avertit si le joueur a réussi son calcul
-public class ResultsScript : MonoBehaviour
+public class Keypad : MonoBehaviour
 {
+    string goal = "";
+    public string Goal {
+        private get { return goal; }
+        set
+        {
+            ChangeCalcul();
+            goal = value;
+        }
+    }      
+
+    public string CurrentCalcul { private get; set; }
+
     TMP_Text result;
     TMP_Text calcul;
     int len = 0;
@@ -15,16 +26,13 @@ public class ResultsScript : MonoBehaviour
         TMP_Text[] t = GetComponentsInChildren<TMP_Text>();
         result = t[0];
         calcul = t[1];
-
-        GameEvents.current.ennemyHasChanged += ChangeCalcul;
     }
 
-    //Rajoute le numéro sur lequel il a été appuyé
     public void AddNumber(int number)
     {
         result.text += number;
         len += 1;
-        CheckSuccess();
+        CheckSuccess(); //Faut lui donner le nombre à atteindre
     }
 
     public void Back()
@@ -42,30 +50,34 @@ public class ResultsScript : MonoBehaviour
         }
     }
 
-    public void Remove()
+    public void RemoveUser()
     {
         result.text = "";
         len = 0;
     }
-
+    
     void ChangeCalcul()
     {
-        Remove();
-        calcul.text = EnnemyManager.current.currentEnnemy.calcul;
+        RemoveUser();
+        calcul.text = CurrentCalcul;
     }
 
     void CheckSuccess()
     {
-        if (EnnemyManager.current.currentEnnemy != null && result.text == EnnemyManager.current.currentEnnemy.result)
+        if (result.text == goal)
         {
-            Remove();
-            ReinitialiseCalcul();
-            EnnemyManager.current.currentEnnemy.Success();
+            GameEvents.current.Succeeded();
         }
     }
+    /*
+    void RemoveAll()
+    {
+        RemoveUser();
+        RemoveCalcul();
+    }
 
-    void ReinitialiseCalcul()
+    void RemoveCalcul()
     {
         calcul.text = "";
-    }
+    } */
 }

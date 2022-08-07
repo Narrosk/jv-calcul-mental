@@ -43,7 +43,7 @@ public class EnnemyController : MonoBehaviour
     void Die()
     {
         Reset();
-        GameEvents.current.EnnemyHasDied();
+        OldGameEvents.current.EnnemyHasDied();
         gameObject.SetActive(false);
     }
 
@@ -65,7 +65,7 @@ public class EnnemyController : MonoBehaviour
                 EnnemyManager.current.currentEnnemy.Deselect();
             }
             EnnemyManager.current.currentEnnemy = himself;
-            GameEvents.current.EnnemyHasChanged();
+            OldGameEvents.current.EnnemyHasChanged();
         }
     }
 

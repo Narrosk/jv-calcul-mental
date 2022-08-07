@@ -17,11 +17,11 @@ public class SpawnerScript : MonoBehaviour
 
     void Start()
     {
-        GameEvents.current.clickOnPlay += StartSpawning;
-        GameEvents.current.clickOnStop += StopSpawning;
-        GameEvents.current.clickOnResume += ResumeSpawning;
-        GameEvents.current.clickOnReturnVillage += StopAll;
-        GameEvents.current.ennemyHasDied += CountDeadEnnemy;
+        OldGameEvents.current.clickOnPlay += StartSpawning;
+        OldGameEvents.current.clickOnStop += StopSpawning;
+        OldGameEvents.current.clickOnResume += ResumeSpawning;
+        OldGameEvents.current.clickOnReturnVillage += StopAll;
+        OldGameEvents.current.ennemyHasDied += CountDeadEnnemy;
     }
 
     void StartSpawning()
@@ -30,7 +30,7 @@ public class SpawnerScript : MonoBehaviour
         {
             Debug.Log("Debut");
             enCours = true;
-            nbEasy = Random.Range(2, 4);  
+            nbEasy = Random.Range(1, 4);  
             nbMedium = Random.Range(1, 3);
             nbHard = Random.Range(1, 3);
 
@@ -70,7 +70,7 @@ public class SpawnerScript : MonoBehaviour
         if (nbDead >= nbEasy + nbMedium + nbHard)
         {
             enCours = false;
-            GameEvents.current.FinVague();
+            OldGameEvents.current.FinVague();
             nbDead = 0;
         }
     }
