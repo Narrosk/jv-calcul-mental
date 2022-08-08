@@ -11,10 +11,10 @@ public class GameEvents : MonoBehaviour
         current = this;
     }
 
-    public event Action succeeded;
-    public void Succeeded()
+    public event Action succeeded1;
+    public void Succeeded1()
     {
-        if (succeeded != null)
-            succeeded();
+        if (succeeded1 != null)
+            succeeded1();
     }
 }

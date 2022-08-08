@@ -17,6 +17,7 @@ public class Keypad : MonoBehaviour
 
     public string CurrentCalcul { private get; set; }
 
+    TMP_Text solution;
     TMP_Text result;
     TMP_Text calcul;
     int len = 0;
@@ -24,15 +25,17 @@ public class Keypad : MonoBehaviour
     private void Start()
     {
         TMP_Text[] t = GetComponentsInChildren<TMP_Text>();
-        result = t[0];
-        calcul = t[1];
+
+        solution = t[0];
+        result = t[1];
+        calcul = t[2];
     }
 
     public void AddNumber(int number)
     {
         result.text += number;
         len += 1;
-        CheckSuccess(); //Faut lui donner le nombre à atteindre
+        CheckSuccess();
     }
 
     public void Back()
@@ -56,9 +59,16 @@ public class Keypad : MonoBehaviour
         len = 0;
     }
     
+    public void PrintSolution()
+    {
+        RemoveUser();
+        solution.text = goal;
+    }
+
     void ChangeCalcul()
     {
         RemoveUser();
+        solution.text = "";
         calcul.text = CurrentCalcul;
     }
 
@@ -66,18 +76,7 @@ public class Keypad : MonoBehaviour
     {
         if (result.text == goal)
         {
-            GameEvents.current.Succeeded();
+            GameEvents.current.Succeeded1();
         }
     }
-    /*
-    void RemoveAll()
-    {
-        RemoveUser();
-        RemoveCalcul();
-    }
-
-    void RemoveCalcul()
-    {
-        calcul.text = "";
-    } */
 }

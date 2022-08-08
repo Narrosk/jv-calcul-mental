@@ -13,7 +13,7 @@ public class MineMultiplication : MonoBehaviour
     private void Start()
     {
         keypad = GameObject.FindGameObjectWithTag("keypad").GetComponent<Keypad>();
-        GameEvents.current.succeeded += NextCalculation;
+        GameEvents.current.succeeded1 += NextCalculation;
 
         //Creation de la table de multiplication
         int i = 0;
